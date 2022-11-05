@@ -1,0 +1,28 @@
+header.flex.justify-between.items-center.bg-zinc-900.p-4.px-24 
+    a(href="/").text-white.text-3xl.font-bold
+        span.text-sky-500 my
+        | inventory
+    .flex.text-white.text-xl.font-semibold= title
+    .text-xl.font-semibold 
+        button#dropdown.flex.items-center.text-white.justify-between 
+            img(src='https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80').w-10.h-10.rounded-full
+            span.ml-2.text-white.text-xl.font-semibold #{user.name}
+            span.mdi.mdi-chevron-down
+        #dropdow-menu.flex.flex-col.absolute.hidden.bg-white.shadow-lg.rounded-lg.px-4.py-2.w-48.justify-between.items-center
+            a(href="/" class='text-gray-700 w-full flex.items-center px-2 py-2 hover:bg-gray-200 rounded-lg')
+                span.mdi.mdi-account-outline.mr-2
+                | Profile
+            a(href="/logout" class='text-gray-700 w-full flex.items-center px-2 py-2 hover:bg-gray-200 rounded-lg')
+                span.mdi.mdi-logout.mr-2
+                | Logout
+    script.
+        const dropdown = document.querySelector('#dropdown');
+        const dropdownMenu = document.querySelector('#dropdow-menu');
+        dropdown.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('hidden');
+        });
+        document.addEventListener('click', (e) => {
+            if (!dropdownMenu.classList.contains('hidden') && !e.target.closest('#dropdown')) {
+                dropdownMenu.classList.add('hidden');
+            }
+        });

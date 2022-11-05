@@ -1,0 +1,16 @@
+doctype html
+html(lang="en")
+    head
+        include ../partials/head
+    body.bg-slate-100
+        .flex.h-screen 
+            .flex-1.flex.flex-col.overflow-hidden
+                include ../partials/navbar
+
+                .flex.h-full
+                    include ../partials/sidebar
+
+                    main.flex.flex-col.w-full.overflow-x-hidden.overflow-y-auto.mb-14 
+                        .flex.w-full.mx-auto.px-6.py-8 
+                            .flex.flex-col.w-full
+                                block content

@@ -1,0 +1,41 @@
+extends layouts/layout
+
+block content 
+    div.grid.grid-cols-3.gap-4
+        div.bg-green-500.rounded-lg.shadow-lg
+            div.text-white.font-bold.p-8
+                p.text-end.text-7xl 982
+            div.text-white.p-4.bg-green-600.rounded-b-lg
+                p.text-start.text-xl Barang Masuk
+        div.bg-red-500.rounded-lg.shadow-lg
+            div.text-white.font-bold.p-8
+                p.text-end.text-7xl 72
+            div.text-white.p-4.bg-red-600.rounded-b-lg
+                p.text-start.text-xl Barang Keluar
+        div.bg-sky-500.rounded-lg.shadow-lg
+            div.text-white.font-bold.p-8
+                p.text-end.text-7xl 402
+            div.text-white.p-4.bg-sky-600.rounded-b-lg
+                p.text-start.text-xl Total Barang
+    div.flex.flex-col.my-8
+        div.bg-white.rounded-lg.shadow-lg.p-8.mt-8
+            h1.text-2xl.font-bold.text-gray-800 Aktivitas Terbaru
+            div.flex.flex-col
+                each l in laporan
+                    div.flex.justify-between.items-center.mt-8
+                        div.flex
+                            - if (l.keterangan == "masuk") {
+                                div.w-12.h-12.bg-green-500.rounded-full.flex.justify-center.items-center.text-center.text-white
+                                    span.mdi.mdi-login-variant.text-2xl
+                            - } else if (l.keterangan == "keluar") {
+                                div.w-12.h-12.bg-red-500.rounded-full.items-center.flex.justify-center.text-white
+                                    span.mdi.mdi-logout-variant.text-2xl
+                            - } else {
+                                div.w-12.h-12.bg-sky-500.rounded-full.items-center.flex.justify-center.text-white
+                                    span.mdi.mdi-login-variant.text-2xl
+                            - }
+                            div.flex.flex-col.ml-4
+                                p.text-gray-800.font-bold.text-lg #{l.nama_barang}
+                                p.text-gray-400.text-sm #{l.jumlah}
+                        p.text-gray-400.text-sm #{l.tanggal.getDate()} #{l.tanggal.toLocaleString('default', { month: 'long' })} #{l.tanggal.getFullYear()} #{l.tanggal.getHours()}:#{l.tanggal.getMinutes()}
+                

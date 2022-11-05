@@ -1,0 +1,38 @@
+extends layouts/layout 
+
+block content
+    - if (errors) {
+        each error in errors
+            div(class="bg-red-100 border flex flex-col mb-4 border-red-400 text-red-700 px-4 py-3 rounded relative" role="error")
+                strong(class="font-bold") Gagal!
+                span(class="") #{error.msg}
+    - }
+    div.bg-white.rounded-lg.shadow-lg
+        form(action="/barang/edit/:id" method="POST").flex.flex-col.px-8.py-6
+            div.px-6.py-4.text-xl
+                div.flex.flex-col.mb-6
+                    label(for="name" class="mb-1 text-gray-600") Nama
+                    input(type="text" name="nama" placeholder="Nama" class="border rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-blue-500" value=barang.nama required)
+                div.flex.flex-col.mb-6
+                    label(for="name" class="mb-1 text-gray-600") Jumlah
+                    div.flex.w-full
+                        input(type="number" name="jumlah" placeholder="Jumlah" class="border rounded-lg px-3 py-2 mt-1 mr-2 focus:outline-none focus:border-blue-500 w-52" value=barang.jumlah required)
+                        select(name="satuan_id" class="bg-white border border-gray-300 rounded-lg px-4 py-2 outline-none" value=barang.satuan_id)
+                            each satuan in satuans
+                                option(value=satuan.id) #{satuan.nama}
+                div.flex.flex-col.mb-6
+                    label(for="rak" class="mb-1 text-gray-600") Rak
+                    select(name="rak_id" class="bg-white border border-gray-300 rounded-lg px-4 py-2 outline-none" value=barang.rak_id)
+                        each rak in raks
+                            option(value=rak.id) #{rak.nama}
+                div.flex.flex-col.mb-6
+                    label(for="name" class="mb-1 text-gray-600") Jenis
+                    select(name="jenis_id" class="bg-white border border-gray-300 rounded-lg px-4 py-2 outline-none" value=barang.jenis_id)
+                        each j in jenis
+                            option(value=j.id) #{j.nama}
+                div.flex.flex-col.mb-6
+                    label(for="pegawai" class="mb-1 text-gray-600") Pengirim
+                    select(name="pegawai_id" class="bg-white border border-gray-300 rounded-lg px-4 py-2 outline-none" value=barang.pegawai_id)
+                        each pegawai in pegawais
+                            option(value=pegawai.id) #{pegawai.nama}
+                button(type="submit" class="bg-sky-500 text-white px-4 py-2 rounded font-medium hover:bg-sky-600") Edit       

@@ -1,0 +1,68 @@
+extends layouts/layout
+
+block content 
+    table(class="table-auto w-full text-md bg-white shadow-md rounded-lg overflow-hidden")
+        thead.bg-gray-800.border-b.border-gray-300.text-white
+            tr
+                th(class="text-left px-4 py-2") No
+                th(class="text-left px-4 py-2") Keterangan
+                th(class="text-left px-4 py-2") Jumlah
+                th(class="text-left px-4 py-2") Nama Barang
+                th(class="text-left px-4 py-2") Tanggal
+                th(class="text-left px-4 py-2")
+        tbody
+            each l,index in laporan
+                tr(class="border-b bg-white hover:bg-gray-100")
+                    td(class="px-4 py-2") #{index + 1}
+                    - if (l.keterangan == 'masuk')
+                        td(class="px-4 py-2") Barang Masuk
+                    - else if (l.keterangan == 'keluar')
+                        td(class="px-4 py-2") Barang Keluar
+                    - else
+                        td(class="px-4 py-2") Pengembalian
+                    td(class="px-4 py-2") #{l.jumlah}
+                    td(class="px-4 py-2") #{l.nama_barang}
+                    td(class="px-4 py-2") #{l.tanggal.getDate()} #{l.tanggal.toLocaleString('default', { month: 'long' })} #{l.tanggal.getFullYear()} #{l.tanggal.getHours()}:#{l.tanggal.getMinutes()}
+                    td(class="px-4 py-2")
+                        button(class="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-full" id="moreInfo")
+                            span(class="mdi mdi-information-outline mr-2")
+                            | Lihat Detail
+                tr(class="hidden" id="detail")
+                    td(class="border-dashed border-t-2 border-gray-200 bg-gray-100" colspan="6")
+                        div(class="flex justify-between px-10 py-5")
+                            div(class="flex flex-col")
+                                div(class="flex flex-row items-center")
+                                    p(class="text-gray-800 font-bold text-lg w-80") Nama Barang
+                                    p(class="text-gray-800 text-lg ml-8") : #{l.nama_barang}
+                                div(class="flex flex-row items-center")
+                                    p(class="text-gray-800 font-bold text-lg w-80") Jumlah
+                                    p(class="text-gray-800 text-lg ml-8") : #{l.jumlah}
+                                div(class="flex flex-row items-center")
+                                    p(class="text-gray-800 font-bold text-lg w-80") Keterangan 
+                                    - if (l.keterangan == 'masuk')
+                                        p(class="text-gray-800 text-lg ml-8") : Barang Masuk
+                                    - else if (l.keterangan == 'keluar')
+                                        p(class="text-gray-800 text-lg ml-8") : Barang Keluar
+                                    - else
+                                        p(class="text-gray-800 text-lg ml-8") : Pengembalian
+                                div(class="flex flex-row items-center")
+                                    - if (l.keterangan == 'masuk')
+                                        p(class="text-gray-800 font-bold text-lg w-80") Pengirim 
+                                    - else
+                                        p(class="text-gray-800 font-bold text-lg w-80") Peminjam 
+                                    p(class="text-gray-800 text-lg ml-8") : #{l.peminjam}
+                                div(class="flex flex-row items-center")
+                                    p(class="text-gray-800 font-bold text-lg w-80") Admin yang bertugas 
+                                    p(class="text-gray-800 text-lg ml-8") : #{l.user}
+
+
+                    
+    script.
+        const moreInfo = document.querySelectorAll('#moreInfo');
+        const detail = document.querySelectorAll('#detail');
+        moreInfo.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                detail[index].classList.toggle('hidden');
+            })
+        })
+        

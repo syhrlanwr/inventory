@@ -1,0 +1,20 @@
+doctype html
+html(lang="en")
+    head
+        - var title = "Error"
+        include partials/head
+    body(style="background-image: url(/static/img/bg.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; background-attachment: fixed;")
+        div.h-screen.flex.flex-col.justify-center.items-center.bg-gray-900.bg-opacity-75
+            a.text-white.text-center.mb-12.text-3xl.font-bold(href="/")
+                span.text-sky-400 my
+                span inventory
+            div(class="bg-white lg:w-1/3 md:w-1/2 rounded-lg shadow-xl p-10")
+                div(class="text-center")
+                    - if (error.status == 404)
+                        h1(class="text-3xl font-semibold") #{error.status}
+                        h1(class="text-3xl font-semibold") Page Not Found
+                        p(class="text-gray-600 mt-3 text-xl") Halaman yang anda cari tidak ditemukan.
+                    - else
+                        h1(class="text-3xl font-semibold") #{error.status}
+                        h2(class="text-3xl font-semibold") Internal Server Error
+                        p(class="text-gray-600 mt-3 text-xl") Terjadi kesalahan pada server. Silahkan coba beberapa saat lagi.

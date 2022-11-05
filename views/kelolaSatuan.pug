@@ -1,0 +1,67 @@
+extends layouts/layout
+
+block content
+    - if (messages.success) {
+        div(class="bg-green-100 border flex flex-col mb-4 border-green-400 text-green-700 px-4 py-3 rounded relative" role="success")
+            strong(class="font-bold") Berhasil! &nbsp;
+            span(class="") #{messages.success}
+    - }
+    - if (messages.error) {
+        div(class="bg-red-100 border flex flex-col mb-4 border-red-400 text-red-700 px-4 py-3 rounded relative" role="error")
+            strong(class="font-bold") Gagal! &nbsp;
+            span(class="") #{messages.error}
+    - }
+    .flex.justify-between.items-center.mb-4 
+        .text-xl 
+            a(href="/satuan/add" class="hover:bg-sky-600 bg-sky-500 text-white px-4 py-2 rounded-lg font-medium")
+                span.mdi.mdi-plus.mr-2
+                | Tambah Satuan
+        .text-xl.flex.items-center 
+            p.text-gray-800.font-medium.mr-2 Tampilkan 
+            select(id='rows' class="bg-white border border-gray-300 rounded-lg px-4 py-2 outline-none" onchange="changeRows()")
+                option 10
+                option 20
+                option 30
+                option 40
+                option 50
+            p.text-gray-800.font-medium.ml-2 baris
+    table#table(class="table-auto w-full text-md bg-white shadow-md rounded-lg")
+        thead.bg-gray-800.border-b.border-gray-300.text-white
+            tr
+                th(class="text-left p-3 px-5") No
+                th(class="text-left p-3 px-5") Nama 
+                th(class="text-left p-3 px-5") Aksi
+        tbody
+            each j, index in satuan
+                tr(class="border-b bg-white hover:bg-gray-100")
+                    td(class="py-4 px-5").text-gray-800
+                        - if (paginate.page == 1)
+                            | #{index + 1}
+                        - else
+                            | #{index + 1 + (paginate.page - 1) * paginate.limit}
+                    td(class="py-4 px-5").text-gray-800 #{j.nama}
+                    td(class="py-4 px-5").text-gray-800
+                        a(href="/satuan/edit/"+j.id class="hover:bg-sky-600 bg-sky-500 text-white px-4 py-2 rounded-lg font-medium")
+                            span.mdi.mdi-pencil
+                        a(href="/satuan/delete/"+j.id class="hover:bg-red-600 bg-red-500 text-white px-4 py-2 rounded-lg font-medium ml-2")
+                            span.mdi.mdi-delete
+    include partials/pagination
+    script.
+        function changeRows() {
+            let rows = document.getElementById('rows').value;
+            window.location.href = '/users?limit=' + rows;
+        }
+
+        let page =  #{paginate.limit}
+        if (page == 10) {
+            document.getElementById('rows').selectedIndex = 0;
+        } else if (page == 20) {
+            document.getElementById('rows').selectedIndex = 1;
+        } else if (page == 30) {
+            document.getElementById('rows').selectedIndex = 2;
+        } else if (page == 40) {
+            document.getElementById('rows').selectedIndex = 3;
+        } else if (page == 50) {
+            document.getElementById('rows').selectedIndex = 4;
+        }
+

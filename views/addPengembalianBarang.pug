@@ -1,0 +1,48 @@
+extends layouts/layout
+
+block content
+    - if (errors) {
+        each error in errors
+            div(class="bg-red-100 border flex flex-col mb-4 border-red-400 text-red-700 px-4 py-3 rounded relative" role="error")
+                strong(class="font-bold") Gagal!
+                span(class="") #{error}
+    - }
+
+    div.bg-white.rounded-lg.shadow-lg
+        form(action="/barang/pengembalian/add" method="POST").flex.flex-col.px-8.py-6
+            div.px-6.py-4.text-xl
+                div.flex.flex-col.mb-6
+                    label(for="name" class="mb-1 text-gray-600") Barang yang dikembalikan
+                    select(name="barangkeluar_id" class="border rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-blue-500" id="barang" autocomplete="off" required)
+                        each b in barangkeluar
+                            option(value=b.id) #{b.barang.nama}
+                div.flex.flex-col.mb-6
+                    label(for="rak" class="mb-1 text-gray-600") Tanggal Peminjaman
+                    div.flex.items-center
+                        input(type="text" name="tanggal" placeholder="tanggal" class="border rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-blue-500" id="tanggal" required)
+                div.flex.flex-col.mb-6
+                    label(for="rak" class="mb-1 text-gray-600") Peminjam
+                    div.flex.items-center
+                        input(type="text" name="peminjam" placeholder="Peminjam" class="border rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-blue-500" id="peminjam" required)
+
+
+                div.flex.flex-col.mb-6
+                    label(for="rak" class="mb-1 text-gray-600") Jumlah
+                    div.flex.items-center
+                        input(type="number" name="jumlah" placeholder="Jumlah" class="border rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-blue-500" required)
+                        p(class="mt-2 ml-2" id="satuan") Satuan
+
+                button(type="submit" class="bg-sky-500 text-white px-4 py-2 rounded font-medium hover:bg-sky-600") Tambahkan
+
+        script.
+            document.getElementById("barang").addEventListener("change", function() {
+                let namaPeminjam = JSON.parse(`!{JSON.stringify(barangkeluar)}`).find(b => b.id == this.value).pegawai.nama;
+                document.getElementById("peminjam").value = namaPeminjam;
+                document.getElementById("peminjam").disabled = true;
+
+                let tanggalPeminjaman = JSON.parse(`!{JSON.stringify(barangkeluar)}`).find(b => b.id == this.value).createdAt.split("T")[0];
+                document.getElementById("tanggal").value = tanggalPeminjaman;
+
+                let satuan = JSON.parse(`!{JSON.stringify(barangkeluar)}`).find(b => b.id == this.value).barang.satuan.nama;
+                document.getElementById("satuan").innerHTML = satuan;
+            });

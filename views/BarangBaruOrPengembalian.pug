@@ -1,0 +1,10 @@
+extends layouts/layout
+
+block content 
+    .flex.flex-col.bg-white.rounded-lg.shadow-lg.px-4.py-6.text-5xl.text-center
+        a(href="/barang/add" class="bg-sky-500 text-white px-4 py-32 my-12 rounded-xl font-medium hover:bg-sky-600")
+            span.mdi.mdi-plus-circle-outline.mr-2
+            | Barang Baru
+        a(href="/barang/add/pengembalian" class="bg-sky-500 text-white px-4 py-32 my-12 rounded-xl font-medium hover:bg-sky-600")
+            span.mdi.mdi-arrow-left-circle-outline.mr-2
+            | Pengembalian

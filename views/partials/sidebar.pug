@@ -1,0 +1,39 @@
+nav(class='flex w-1/5 flex-col bg-zinc-900 bg-opacity-95 text-white text-xl font-semibold shadow-lg')
+    .flex-1.overflow-y-auto
+        ul.flex.flex-col.py-4.justify-center.space-y-1 
+            li 
+                a(href='/' class='flex items-center px-6 py-3 hover:bg-sky-500 hover:bg-opacity-25')
+                    span.mdi.mdi-view-dashboard.mr-3
+                    | Dashboard
+            li
+                a(href='/barang' class='flex items-center px-6 py-3 hover:bg-sky-500 hover:bg-opacity-25')
+                    span.mdi.mdi-package-variant-closed.mr-3
+                    | Kelola Barang
+            li
+                a(href='/jenis' class='flex items-center px-6 py-3 hover:bg-sky-500 hover:bg-opacity-25')
+                    span.mdi.mdi-tag-multiple.mr-3
+                    | Kelola Jenis Barang
+            
+            li
+                a(href='/satuan' class='flex items-center px-6 py-3 hover:bg-sky-500 hover:bg-opacity-25')
+                    span.mdi.mdi-scale.mr-3
+                    | Kelola Satuan Barang
+
+            li
+                a(href='/rak' class='flex items-center px-6 py-3 hover:bg-sky-500 hover:bg-opacity-25')
+                    span.mdi.mdi-text-box-check.mr-3
+                    | Kelola Rak
+            li
+                a(href='/pegawai' class='flex items-center px-6 py-3 hover:bg-sky-500 hover:bg-opacity-25')
+                    span.mdi.mdi-account.mr-3
+                    | Kelola Pegawai
+            - if (user.username == 'admin'){
+                li
+                    a(href='/users' class='flex items-center px-6 py-3 hover:bg-sky-500 hover:bg-opacity-25')
+                        span.mdi.mdi-account-multiple.mr-3
+                        | Kelola User
+            - }
+            li
+                a(href='/laporan' class='flex items-center px-6 py-3 hover:bg-sky-500 hover:bg-opacity-25')
+                    span.mdi.mdi-clipboard-text.mr-3
+                    | Laporan

@@ -1,0 +1,26 @@
+if paginate.hasPreviousPages || paginate.hasNextPages(pageCount)
+    div.flex.justify-center.my-6
+        if paginate.hasPreviousPages
+            a(class='hover:bg-sky-600' href=paginate.href(true)).bg-sky-500.text-white.px-4.py-2.rounded.font-medium.tracking-wide.mr-2
+                span.mdi.mdi-arrow-left-bold.mr-2
+                | Sebelumnya
+        else 
+            a(class='bg-gray-300 text-gray-500 cursor-not-allowed').bg-gray-300.text-gray-500.px-4.py-2.rounded.font-medium.tracking-wide.mr-2
+                span.mdi.mdi-arrow-left-bold.mr-2
+                | Sebelumnya
+        
+        if pages
+            each page in pages
+                if page.number == paginate.page
+                    span(class='bg-gray-300 text-gray-500 px-4 py-2 rounded font-medium tracking-wide').mr-2 #{page.number}
+                else
+                    a(class='hover:bg-sky-600' href=page.url).bg-sky-500.text-white.px-4.py-2.rounded.font-medium.tracking-wide.mr-2 #{page.number}
+        
+        if paginate.hasNextPages(pageCount)
+            a(class='hover:bg-sky-600' href=paginate.href()).bg-sky-500.text-white.px-4.py-2.rounded.font-medium.tracking-wide
+                | Selanjutnya
+                span.mdi.mdi-arrow-right-bold.ml-2
+        else
+            a(class='bg-gray-300 text-gray-500 cursor-not-allowed').bg-gray-300.text-gray-500.px-4.py-2.rounded.font-medium.tracking-wide
+                | Selanjutnya
+                span.mdi.mdi-arrow-right-bold.ml-2
